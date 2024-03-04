@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.energy.welfare.mapper.NoticeMapper">
+
+    <select id="getNoticeList" resultType="com.energy.welfare.dto.Notice">
+        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        from notice
+        where UseYn = 'Y'
+        order by id desc
+    </select>
+
+    <select id="getNoticeListTop5" resultType="com.energy.welfare.dto.Notice">
+        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        from notice
+        where UseYn = 'Y'
+        order by id desc
+        limit 5
+    </select>
+
+    <select id="getNotice" parameterType="String" resultType="com.energy.welfare.dto.Notice">
+        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        from notice
+        where id = #{id}
+    </select>
+
+    <select id="getNoticePrev" parameterType="String" resultType="com.energy.welfare.dto.Notice">
+        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        from notice
+        where id = (
+            select max(id)
+            from notice
+            where UseYn = 'Y'
+            and id <![CDATA[<]]> #{id}
+        )
+    </select>
+
+    <select id="getNoticeNext" parameterType="String" resultType="com.energy.welfare.dto.Notice">
+        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%y.%m.%d') updatedat
+        from notice
+        where id = (
+            select min(id)
+            from notice
+            where UseYn = 'Y'
+            and id <![CDATA[>]]> #{id}
+        )
+    </select>
+
+    <insert id="insertNotice" parameterType="com.energy.welfare.dto.Notice">
+        insert into notice (Title, description, imagefile, imageurl) values(#{title}, #{description}, #{imagefile}, #{imageurl});
+    </insert>
+    
+    <update id="updateNotice" parameterType="com.energy.welfare.dto.Notice">
+        update notice
+        set
+              title = #{title}
+            , description = #{description}
+            , imagefile = #{imagefile}
+            , imageurl = #{imageurl}
+            , updatedat = CURRENT_TIMESTAMP()
+        where id = #{id}
+    </update>
+
+    <update id="deleteNotice" parameterType="String">
+        update notice
+        set
+            useyn = 'N'
+        where id = #{id}
+    </update>
+
+</mapper>

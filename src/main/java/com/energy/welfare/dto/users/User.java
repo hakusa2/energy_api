@@ -1,6 +1,5 @@
 package com.energy.welfare.dto.users;
 
-import com.energy.welfare.enumeration.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -71,4 +70,5 @@ public class User implements UserDetails {
     public String getUserRole(){
         return this.userRole;
     }
+
 }

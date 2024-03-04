@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.energy.welfare.mapper.ConstructionCaseMapper">
+
+    <select id="getConstructionCaseList" resultType="com.energy.welfare.dto.ConstructionCase">
+        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, MarkYn, TagYn1, TagYn2, TagYn3, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from construction_case
+        where UseYn = 'Y'
+    </select>
+
+    <select id="getConstructionCase" parameterType="String" resultType="com.energy.welfare.dto.ConstructionCase">
+        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, MarkYn, TagYn1, TagYn2, TagYn3, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from construction_case
+        where id = #{id}
+    </select>
+
+    <insert id="insertConstructionCase" parameterType="com.energy.welfare.dto.ConstructionCase">
+        insert into construction_case (BType, GroupName, Addr1, Addr2, BusinessSummary, PackageCompose, ImageFile, ImageUrl, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9)
+        values(#{btype}, #{groupName}, #{addr1}, #{addr2}, #{businessSummary}), #{packageCompose}, #{imageFile}, #{imageUrl}, #{markYn}), #{tagYn1}, #{tagYn2}, #{tagYn3}, #{tagYn4}, #{tagYn5}, #{tagYn6}, #{tagYn7}, #{tagYn8}, #{tagYn9}));
+    </insert>
+    
+    <update id="updateConstructionCase" parameterType="com.energy.welfare.dto.ConstructionCase">
+        update construction_case
+        set
+              BType = #{btype}
+            , GroupName = #{groupName}
+            , Addr1 = #{addr1}
+            , Addr2 = #{addr2}
+            , BusinessSummary = #{businessSummary}
+            , PackageCompose = #{packageCompose}
+            , ImageFile = #{imageFile}
+            , ImageUrl = #{imageUrl}
+            , MarkYn = #{markYn}
+            , TagYn1 = #{tagYn1}
+            , TagYn2 = #{tagYn2}
+            , TagYn3 = #{tagYn3}
+            , TagYn4 = #{tagYn4}
+            , TagYn5 = #{tagYn5}
+            , TagYn6 = #{tagYn6}
+            , TagYn7 = #{tagYn7}
+            , TagYn8 = #{tagYn8}
+            , TagYn9 = #{tagYn9}
+            , UpdatedAt = CURRENT_TIMESTAMP()
+        where id = #{id}
+    </update>
+
+    <update id="deleteConstructionCase" parameterType="String">
+        update construction_case
+        set
+              UseYn = 'N'
+        where id = #{id}
+    </update>
+
+</mapper>

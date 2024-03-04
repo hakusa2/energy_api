@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.energy.welfare.mapper.BusinessMapper">
+
+    <select id="getBusinessList" resultType="com.energy.welfare.dto.Business">
+        select id, btype, status, groupName, name, birth, phone, email, zipcode, addr1, addr2, SunLightYn, modelname, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from business
+        where UseYn = 'Y'
+    </select>
+
+    <select id="getBusiness" parameterType="String" resultType="com.energy.welfare.dto.Business">
+        select id, btype, status, groupName, name, birth, phone, email, zipcode, addr1, addr2, SunLightYn, modelname, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from business
+        where id = #{id}
+    </select>
+
+    <insert id="insertBusiness" parameterType="com.energy.welfare.dto.Business">
+        insert into business (BType, Status, GroupName, Name, Birth, Phone, Email, Zipcode, Addr1, Addr2, SunLightYn, ModelName)
+        values(#{btype}, #{status}, #{groupName}, #{name}, #{birth}), #{phone}, #{email}, #{zipcode}, #{addr1}), #{addr2}, #{sunLightYn}, #{modelName}));
+    </insert>
+    
+    <update id="updateBusiness" parameterType="com.energy.welfare.dto.Business">
+        update business
+        set
+              BType = #{btype}
+            , Status = #{status}
+            , GroupName = #{groupName}
+            , Name = #{name}
+            , Birth = #{birth}
+            , Phone = #{phone}
+            , Email = #{email}
+            , Zipcode = #{zipcode}
+            , Addr1 = #{addr1}
+            , Addr2 = #{addr2}
+            , SunLightYn = #{sunLightYn}
+            , ModelName = #{modelName}
+            , UpdatedAt = CURRENT_TIMESTAMP()
+        where id = #{id}
+    </update>
+
+    <update id="statusChangeBusiness" parameterType="com.energy.welfare.dto.Business">
+        update business
+        set
+              Status = #{status}
+            , UpdatedAt = CURRENT_TIMESTAMP()
+        where id = #{id}
+    </update>
+
+    <update id="deleteBusiness" parameterType="String">
+        update business
+        set
+              UseYn = 'N'
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -1,10 +1,41 @@
 spring:
   datasource:
-    driver: com.mysql.cj.jdbc.Driver
-    jdbc-url: jdbc:mysql://localhost:3306/potal?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
+    #driver: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:log4jdbc:mysql://118.67.128.120:3306/potal?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
     username: energy
     password: energy
     mapper-locations: classpath:/mapper/**/*.xml
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      location: C:/
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+file:
+  path:
+    notice: '/home/netmics/front/file/notice/'
+    promotion: '/home/netmics/front/file/promotion/'
+    faq: '/home/netmics/front/file/faq/'
+    banner: '/home/netmics/front/file/banner/'
+    construction: '/home/netmics/front/file/construction/'
+
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari: INFO
+    javax:
+      sql:
+        DataSource: OFF
+    jdbc:
+      audit: OFF # JDBC 트러블슈팅 경우를 제외하고는 사용 권장 X
+      resultset: OFF # ResultSet을 포함한 모든 JDBC 호출 정보를 출력
+      resultsettable: OFF  #SQL 결과 데이터 Table형식으로 출력
+      sqlonly: OFF     #SQL만 로그만 출력
+      sqltiming: INFO    #SQL + 소요시간 출력
+      connection : OFF  # 커넥션 연결/종료 정보 출력
 
 server:
   port: 8081

@@ -1,6 +1,5 @@
 package com.energy.welfare.config.security;
 
-import com.energy.welfare.enumeration.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -8,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +33,8 @@ public class JwtConfig {
     @Value("${JWT_EXPIRE_TIME}")
     private long expireTime;
 
-    private final UserDetailsService userDetailsService;
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init() {

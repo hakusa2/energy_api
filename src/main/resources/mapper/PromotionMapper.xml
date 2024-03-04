@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.energy.welfare.mapper.PromotionMapper">
+
+    <select id="getPromotionList" resultType="com.energy.welfare.dto.Promotion">
+        select id, title, description, ImageFile, ImageUrl, ImageFileDetail, ImageUrlDetail, LinkUrl, Target, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from promotion
+        where UseYn = 'Y'
+    </select>
+
+    <select id="getPromotion" parameterType="String" resultType="com.energy.welfare.dto.Promotion">
+        select id, title, description, ImageFile, ImageUrl, ImageFileDetail, ImageUrlDetail, LinkUrl, Target, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from promotion
+        where id = #{id}
+    </select>
+
+    <insert id="insertPromotion" parameterType="com.energy.welfare.dto.Promotion">
+        insert into promotion (Title, description, ImageFile, ImageUrl, ImageFileDetail, ImageUrlDetail, LinkUrl, Target) values(#{title}, #{description}, #{ImageFile}, #{ImageUrl}, #{ImageFileDetail}, #{ImageUrlDetail}), #{LinkUrl}, #{Target}));
+    </insert>
+    
+    <update id="updatePromotion" parameterType="com.energy.welfare.dto.Promotion">
+        update promotion
+        set
+              title = #{title}
+            , description = #{description}
+            , ImageFile = #{ImageFile}
+            , ImageUrl = #{ImageUrl}
+            , ImageFileDetail = #{ImageFileDetail}
+            , ImageUrlDetail = #{ImageUrlDetail}
+            , LinkUrl = #{LinkUrl}
+            , Target = #{Target}
+            , UpdatedAt = CURRENT_TIMESTAMP()
+        where id = #{id}
+    </update>
+
+    <update id="deletePromotion" parameterType="String">
+        update promotion
+        set
+              UseYn = 'N'
+        where id = #{id}
+    </update>
+
+</mapper>

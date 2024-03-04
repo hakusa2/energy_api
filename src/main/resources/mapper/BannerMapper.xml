@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.energy.welfare.mapper.BannerMapper">
+
+    <select id="getBannerList" resultType="com.energy.welfare.dto.Banner">
+        select id, title, description, ImageFile, ImageUrl, ImageFileDetail, ImageUrlDetail, LinkUrl, Target, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from banner
+        where UseYn = 'Y'
+    </select>
+
+    <select id="getBanner" parameterType="String" resultType="com.energy.welfare.dto.Banner">
+        select id, title, description, ImageFile, ImageUrl, ImageFileDetail, ImageUrlDetail, LinkUrl, Target, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from banner
+        where id = #{id}
+    </select>
+
+    <insert id="insertBanner" parameterType="com.energy.welfare.dto.Banner">
+        insert into banner (Title, description, ImageFile, ImageUrl, ImageFileDetail, ImageUrlDetail, LinkUrl, Target) values(#{title}, #{description}, #{ImageFile}, #{ImageUrl}, #{ImageFileDetail}, #{ImageUrlDetail}), #{LinkUrl}, #{Target}));
+    </insert>
+    
+    <update id="updateBanner" parameterType="com.energy.welfare.dto.Banner">
+        update banner
+        set
+              title = #{title}
+            , description = #{description}
+            , ImageFile = #{ImageFile}
+            , ImageUrl = #{ImageUrl}
+            , ImageFileDetail = #{ImageFileDetail}
+            , ImageUrlDetail = #{ImageUrlDetail}
+            , LinkUrl = #{LinkUrl}
+            , Target = #{Target}
+            , UpdatedAt = CURRENT_TIMESTAMP()
+        where id = #{id}
+    </update>
+
+    <update id="deleteBanner" parameterType="String">
+        update banner
+        set
+              UseYn = 'N'
+        where id = #{id}
+    </update>
+
+</mapper>
