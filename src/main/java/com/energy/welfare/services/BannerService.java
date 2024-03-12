@@ -17,6 +17,10 @@ public class BannerService {
         return bannerMapper.getBannerList();
     }
 
+    public ArrayList<Banner> getBannerListTop5() {
+        return bannerMapper.getBannerListTop5();
+    }
+
     public Banner getBanner(String id) {
         return bannerMapper.getBanner(id);
     }

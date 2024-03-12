@@ -3,28 +3,36 @@
 <mapper namespace="com.energy.welfare.mapper.NoticeMapper">
 
     <select id="getNoticeList" resultType="com.energy.welfare.dto.Notice">
-        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        select id, title, case `type` when '2' then '[보도자료]' else '[공지사항]' end as category, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%Y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
         from notice
         where UseYn = 'Y'
         order by id desc
     </select>
 
     <select id="getNoticeListTop5" resultType="com.energy.welfare.dto.Notice">
-        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        select id, title,case `type` when '2' then '[보도자료]' else '[공지사항]' end as category, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%Y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
         from notice
         where UseYn = 'Y'
         order by id desc
         limit 5
     </select>
 
+    <select id="getNoticeListTop" resultType="com.energy.welfare.dto.Notice">
+        select id, title, case `type` when '2' then '[보도자료]' else '[공지사항]' end as category, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%Y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        from notice
+        where UseYn = 'Y'
+        order by id desc
+        limit 1
+    </select>
+
     <select id="getNotice" parameterType="String" resultType="com.energy.welfare.dto.Notice">
-        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        select id, title, case `type` when '2' then '[보도자료]' else '[공지사항]' end as category, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%Y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
         from notice
         where id = #{id}
     </select>
 
     <select id="getNoticePrev" parameterType="String" resultType="com.energy.welfare.dto.Notice">
-        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
+        select id, title, case `type` when '2' then '[보도자료]' else '[공지사항]' end as category, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%Y.%m.%d') createdat, DATE_FORMAT(updatedat, '%Y.%m.%d') updatedat
         from notice
         where id = (
             select max(id)
@@ -35,7 +43,7 @@
     </select>
 
     <select id="getNoticeNext" parameterType="String" resultType="com.energy.welfare.dto.Notice">
-        select id, title, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%y.%m.%d') createdat, DATE_FORMAT(updatedat, '%y.%m.%d') updatedat
+        select id, title, case `type` when '2' then '[보도자료]' else '[공지사항]' end as category, description, imagefile, imageurl, useyn, DATE_FORMAT(createdat, '%Y.%m.%d') createdat, DATE_FORMAT(updatedat, '%y.%m.%d') updatedat
         from notice
         where id = (
             select min(id)
@@ -46,13 +54,14 @@
     </select>
 
     <insert id="insertNotice" parameterType="com.energy.welfare.dto.Notice">
-        insert into notice (Title, description, imagefile, imageurl) values(#{title}, #{description}, #{imagefile}, #{imageurl});
+        insert into notice (Title, `type`, description, imagefile, imageurl) values(#{title}, #{category}, #{description}, #{imagefile}, #{imageurl});
     </insert>
     
     <update id="updateNotice" parameterType="com.energy.welfare.dto.Notice">
         update notice
         set
               title = #{title}
+            , `type` = #{category}
             , description = #{description}
             , imagefile = #{imagefile}
             , imageurl = #{imageurl}

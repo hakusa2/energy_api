@@ -5,12 +5,17 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Mapper
 @Repository
 public interface ConstructionCaseMapper {
 
-    ArrayList<ConstructionCase> getConstructionCaseList();
+    ArrayList<ConstructionCase> getConstructionCaseList(Map<String,Object> map);
+
+    int getConstructionCaseTotal(String type);
+
+    ArrayList<ConstructionCase> getConstructionCaseListTop3();
 
     ConstructionCase getConstructionCase(String id);
 

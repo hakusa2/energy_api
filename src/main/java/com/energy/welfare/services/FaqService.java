@@ -14,7 +14,13 @@ public class FaqService {
     FaqMapper faqMapper;
 
     public ArrayList<Faq> getFaqList() {
-        return faqMapper.getFaqList();
+        ArrayList<Faq> faqList = faqMapper.getFaqList();
+
+        for(Faq faq : faqList){
+            faq.setDescriptionList(faq.getDescription().split("\n"));
+            faq.setDescription("");
+        }
+        return faqList;
     }
 
     public Faq getFaq(String id) {

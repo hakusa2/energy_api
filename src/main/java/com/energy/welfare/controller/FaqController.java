@@ -53,51 +53,26 @@ public class FaqController {
     @Operation(summary = "FAQ 등록", description = "FAQ 등록 API")
     @RequestMapping(value = "write", method = RequestMethod.POST)
     public ModelMap write(
-            @RequestParam(value = "title", required = true) String title
+            @RequestParam(value = "qTitle", required = true) String qTitle
+            , @RequestParam(value = "aTitle", required = true) String aTitle
             , @RequestParam(value = "description", required = true) String description
-            , @RequestParam(value = "image", required = false) MultipartFile image
-            , @RequestParam(value = "imageDetail", required = false) MultipartFile imageDetail
-            , @RequestParam(value = "link", required = false) String link
-            , @RequestParam(value = "target", required = false) String target
     ) {
         ModelMap modelMap = new ModelMap();
 
         try {
-            String fileName = "";
-            boolean fileInclude = false;
+            Faq Faq = new Faq();
+            Faq.setQTitle(qTitle);
+            Faq.setATitle(aTitle);
+            Faq.setDescription(description);
 
-            if(image != null && !image.isEmpty()){
-                fileInclude = true;
-                fileName = fileService.serverUploadFile(image, filePath);
-            }
+            int rst = faqService.insertFaq(Faq);
 
-            if(fileInclude && (fileName == null ||  fileName.isEmpty())){
-                modelMap.put(Define.CODE, Define.FILE_FAIL_CODE);
-                modelMap.put(Define.MESSAGE, Define.FILE_FAIL_MESSAGE);
+            if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
+                modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+                modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
             } else {
-                Faq Faq = new Faq();
-                Faq.setTitle(title);
-                Faq.setDescription(description);
-                Faq.setTarget(target);
-                Faq.setLinkUrl(link);
-
-                if(fileInclude){
-                    Faq.setImageFile(image.getOriginalFilename());
-                    Faq.setImageUrl(Define.IMG_FAQ_URL + fileName);
-                } else {
-                    Faq.setImageFile("");
-                    Faq.setImageUrl("");
-                }
-
-                int rst = faqService.insertFaq(Faq);
-
-                if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
-                    modelMap.put(Define.CODE, Define.SUCCESS_CODE);
-                    modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
-                } else {
-                    modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
-                    modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
-                }
+                modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
+                modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
             }
         } catch(Exception e){
             log.info("write" + e.getMessage());
@@ -111,7 +86,8 @@ public class FaqController {
     @Operation(summary = "FAQ 수정", description = "FAQ 수정 API")
     @RequestMapping(value = "modify", method = RequestMethod.POST)
     public ModelMap modify(
-            @RequestParam(value = "title", required = true) String title
+            @RequestParam(value = "qTitle", required = true) String qTitle
+            , @RequestParam(value = "aTitle", required = true) String aTitle
             , @RequestParam(value = "description", required = true) String description
             , @RequestParam(value = "image", required = false) MultipartFile image
             , @RequestParam(value = "imageDetail", required = false) MultipartFile imageDetail
@@ -122,38 +98,19 @@ public class FaqController {
         ModelMap modelMap = new ModelMap();
 
         try {
-            String fileName = "";
-            boolean fileInclude = false;
+            Faq Faq = faqService.getFaq(id);
+            Faq.setQTitle(qTitle);
+            Faq.setATitle(aTitle);
+            Faq.setDescription(description);
 
-            if(image != null && !image.isEmpty()){
-                fileInclude = true;
-                fileName = fileService.serverUploadFile(image, filePath);
-            }
+            int rst = faqService.updateFaq(Faq);
 
-            if(fileInclude && (fileName == null ||  fileName.isEmpty())){
-                modelMap.put(Define.CODE, Define.FILE_FAIL_CODE);
-                modelMap.put(Define.MESSAGE, Define.FILE_FAIL_MESSAGE);
+            if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
+                modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+                modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
             } else {
-                Faq Faq = faqService.getFaq(id);
-                Faq.setTitle(title);
-                Faq.setDescription(description);
-                Faq.setTarget(target);
-                Faq.setLinkUrl(link);
-
-                if(fileInclude){
-                    Faq.setImageFile(image.getOriginalFilename());
-                    Faq.setImageUrl(Define.IMG_FAQ_URL + fileName);
-                }
-
-                int rst = faqService.updateFaq(Faq);
-
-                if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
-                    modelMap.put(Define.CODE, Define.SUCCESS_CODE);
-                    modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
-                } else {
-                    modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
-                    modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
-                }
+                modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
+                modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
             }
         } catch(Exception e){
             log.info("modify" + e.getMessage());

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface BannerMapper {
 
     ArrayList<Banner> getBannerList();
+    ArrayList<Banner> getBannerListTop5();
 
     Banner getBanner(String id);
 

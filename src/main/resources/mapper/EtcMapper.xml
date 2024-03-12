@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.energy.welfare.mapper.EtcMapper">
+    <select id="getAdvice" resultType="com.energy.welfare.dto.Advice">
+        select
+            max(case `code` when 'phone' then `data` end) as phone
+            , max(case `code` when 'email' then `data` end) as email
+        from site_data
+    </select>
+
+    <select id="getApproval" resultType="com.energy.welfare.dto.Approval">
+        select
+            max(case code when 'building' then `data` end) as building
+            , max(case code when 'shop' then `data` end) as shop
+            , max(case code when 'apartment' then `data` end) as apartment
+            , max(case code when 'detached' then `data` end) as detached
+        from site_data
+    </select>
+
+    <update id="updateEtc" parameterType="com.energy.welfare.dto.EtcDto">
+        update site_data
+        set
+              `data` = #{data}
+            , UpdatedAt = CURRENT_TIMESTAMP()
+        where code = #{code}
+    </update>
+</mapper>

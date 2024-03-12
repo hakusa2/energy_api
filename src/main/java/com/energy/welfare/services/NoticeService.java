@@ -21,6 +21,10 @@ public class NoticeService {
         return noticeMapper.getNoticeListTop5();
     }
 
+    public Notice getNoticeListTop() {
+        return noticeMapper.getNoticeListTop();
+    }
+
     public Notice getNotice(String id) {
         return noticeMapper.getNotice(id);
     }

@@ -3,12 +3,10 @@ package com.energy.welfare.dto;
 public class Faq {
 
     private Long id;
-    private String title;
+    private String qTitle;
+    private String aTitle;
     private String description;
-    private String imageFile;
-    private String imageUrl;
-    private String linkUrl;
-    private String target;
+    private String[] descriptionList;
     private String useYn;
     private String createdAt;
     private String updatedAt;
@@ -24,13 +22,13 @@ public class Faq {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getQTitle() { return qTitle; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public void setQTitle(String qTitle) { this.qTitle = qTitle; }
+
+    public String getATitle() { return aTitle; }
+
+    public void setATitle(String aTitle) { this.aTitle = aTitle; }
 
     public String getDescription() {
         return description;
@@ -40,37 +38,9 @@ public class Faq {
         this.description = description;
     }
 
-    public String getImageFile() {
-        return imageFile;
-    }
+    public String[] getDescriptionList() { return descriptionList; }
 
-    public void setImageFile(String imageFile) {
-        this.imageFile = imageFile;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getLinkUrl() {
-        return linkUrl;
-    }
-
-    public void setLinkUrl(String linkUrl) {
-        this.linkUrl = linkUrl;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
-    }
+    public void setDescriptionList(String[] descriptionList) { this.descriptionList = descriptionList; }
 
     public String getUseYn() {
         return useYn;

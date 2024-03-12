@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "banner")
 @RequiredArgsConstructor
+@PreAuthorize("isAuthenticated()")
 public class BannerController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -40,6 +43,13 @@ public class BannerController {
     public List<Banner> getList(
     ) {
         return bannerService.getBannerList();
+    }
+
+    @Operation(summary = "배너 조회 Top5", description = "배너 조회 Top5 API")
+    @RequestMapping(value = "getListTop5", method = RequestMethod.GET)
+    public List<Banner> getListTop5(
+    ) {
+        return bannerService.getBannerListTop5();
     }
 
     @Operation(summary = "배너 상세(단건) 조회", description = "배너 상세(단건) 조회 API")

@@ -4,6 +4,7 @@ public class Notice {
 
     private Long id;
     private String title;
+    private String category;
     private String description;
     private String imageFile;
     private String imageUrl;
@@ -29,6 +30,10 @@ public class Notice {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getCategory() { return category; }
+
+    public void setCategory(String category) { this.category = category; }
 
     public String getDescription() {
         return description;

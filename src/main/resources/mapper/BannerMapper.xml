@@ -6,6 +6,15 @@
         select id, title, description, ImageFile, ImageUrl, ImageFileDetail, ImageUrlDetail, LinkUrl, Target, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from banner
         where UseYn = 'Y'
+        order by id desc
+    </select>
+
+    <select id="getBannerListTop5" resultType="com.energy.welfare.dto.Banner">
+        select id, title, description, ImageFile, ImageUrl, ImageFileDetail, ImageUrlDetail, LinkUrl, Target, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from banner
+        where UseYn = 'Y'
+        order by id desc
+        limit 5
     </select>
 
     <select id="getBanner" parameterType="String" resultType="com.energy.welfare.dto.Banner">

@@ -14,6 +14,8 @@ public interface NoticeMapper {
 
     ArrayList<Notice> getNoticeListTop5();
 
+    Notice getNoticeListTop();
+
     Notice getNotice(String id);
 
     Notice getNoticePrev(String id);

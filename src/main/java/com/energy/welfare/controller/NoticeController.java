@@ -47,6 +47,13 @@ public class NoticeController {
         return noticeService.getNoticeListTop5();
     }
 
+    @Operation(summary = "공지사항 Top 조회", description = "공지사항 Top 조회 API")
+    @RequestMapping(value = "getListTop", method = RequestMethod.GET)
+    public Notice getListTop(
+    ) {
+        return noticeService.getNoticeListTop();
+    }
+
     @Operation(summary = "공지사항 상세(단건) 조회", description = "공지사항 상세(단건) 조회 API")
     @RequestMapping(value = "getSingle", method = RequestMethod.GET)
     public Notice getSingle(
@@ -75,6 +82,7 @@ public class NoticeController {
     @RequestMapping(value = "write", method = RequestMethod.POST)
     public ModelMap write(
             @RequestParam(value = "title", required = true) String title
+            , @RequestParam(value = "type", required = true) String type
             , @RequestParam(value = "description", required = true) String description
             , @RequestParam(value = "image", required = false) MultipartFile image
     ) {
@@ -95,6 +103,7 @@ public class NoticeController {
             } else {
                 Notice notice = new Notice();
                 notice.setTitle(title);
+                notice.setCategory(type);
                 notice.setDescription(description);
 
                 if(fileInclude){
@@ -128,6 +137,7 @@ public class NoticeController {
     @RequestMapping(value = "modify", method = RequestMethod.POST)
     public ModelMap modify(
             @RequestParam(value = "title", required = true) String title
+            , @RequestParam(value = "type", required = true) String type
             , @RequestParam(value = "description", required = true) String description
             , @RequestParam(value = "image", required = false) MultipartFile image
             , @RequestParam(value = "id", required = true) String id
@@ -149,6 +159,7 @@ public class NoticeController {
             } else {
                 Notice notice = noticeService.getNotice(id);
                 notice.setTitle(title);
+                notice.setCategory(type);
                 notice.setDescription(description);
 
                 if(fileInclude){

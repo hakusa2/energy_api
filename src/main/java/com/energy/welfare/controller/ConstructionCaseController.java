@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "construction")
@@ -35,11 +37,28 @@ public class ConstructionCaseController {
     private String filePath;
 
 
-    @Operation(summary = "구축사례 조회", description = "구축사례 전체 조회 API")
+    @Operation(summary = "구축사례 조회", description = "타입별 구축사례 조회 API")
     @RequestMapping(value = "getList", method = RequestMethod.GET)
     public List<ConstructionCase> getList(
+            @RequestParam(value = "type", required = true) String type
+            , @RequestParam(value = "page", required = true) int page
     ) {
-        return constructionCaseService.getConstructionCaseList();
+        return constructionCaseService.getConstructionCaseList(type, page);
+    }
+
+    @Operation(summary = "구축사례 페이지 수 조회", description = "구축사례 페이지 수 조회 API")
+    @RequestMapping(value = "getTotal", method = RequestMethod.GET)
+    public int getTotal(
+            @RequestParam(value = "type", required = true) String type
+    ) {
+        return constructionCaseService.getConstructionCaseTotal(type);
+    }
+
+    @Operation(summary = "구축사례 조회 Top3", description = "구축사례 전체 조회 Top3 API")
+    @RequestMapping(value = "getListTop3", method = RequestMethod.GET)
+    public List<ConstructionCase> getListTop3(
+    ) {
+        return constructionCaseService.getConstructionCaseListTop3();
     }
 
     @Operation(summary = "구축사례 상세(단건) 조회", description = "구축사례 상세(단건) 조회 API")

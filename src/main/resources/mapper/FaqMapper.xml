@@ -3,30 +3,27 @@
 <mapper namespace="com.energy.welfare.mapper.FaqMapper">
 
     <select id="getFaqList" resultType="com.energy.welfare.dto.Faq">
-        select id, title, description, ImageFile, ImageUrl, LinkUrl, Target, UseYn, DATE_FORMAT(CreatedAt, '%y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        select id, qTitle, aTitle, description, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from faq
         where UseYn = 'Y'
     </select>
 
     <select id="getFaq" parameterType="String" resultType="com.energy.welfare.dto.Faq">
-        select id, title, description, ImageFile, ImageUrl, LinkUrl, Target, UseYn, DATE_FORMAT(CreatedAt, '%y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        select id, qTitle, aTitle, description, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from faq
         where id = #{id}
     </select>
 
     <insert id="insertFaq" parameterType="com.energy.welfare.dto.Faq">
-        insert into faq (Title, description, ImageFile, ImageUrl, LinkUrl, Target) values(#{title}, #{description}, #{ImageFile}, #{ImageUrl}, #{LinkUrl}, #{Target}));
+        insert into faq (qTitle, aTitle, description) values(#{qTitle}, #{aTitle}, #{description});
     </insert>
     
     <update id="updateFaq" parameterType="com.energy.welfare.dto.Faq">
         update faq
         set
-              title = #{title}
+              qTitle = #{qTitle}
+            , aTitle = #{aTitle}
             , description = #{description}
-            , ImageFile = #{ImageFile}
-            , ImageUrl = #{ImageUrl}
-            , LinkUrl = #{LinkUrl}
-            , Target = #{Target}
             , UpdatedAt = CURRENT_TIMESTAMP()
         where id = #{id}
     </update>

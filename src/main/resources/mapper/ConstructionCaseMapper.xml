@@ -2,10 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.energy.welfare.mapper.ConstructionCaseMapper">
 
-    <select id="getConstructionCaseList" resultType="com.energy.welfare.dto.ConstructionCase">
+    <select id="getConstructionCaseList" parameterType="Map" resultType="com.energy.welfare.dto.ConstructionCase">
         select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, MarkYn, TagYn1, TagYn2, TagYn3, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from construction_case
         where UseYn = 'Y'
+        and btype = #{type}
+        order by id desc
+        limit #{page}, 3
+    </select>
+
+    <select id="getConstructionCaseTotal" parameterType="String" resultType="int">
+        select ceil(count(*) / 3) total
+        from construction_case
+        where UseYn = 'Y'
+        and btype = #{type}
+    </select>
+
+    <select id="getConstructionCaseListTop3" parameterType="Map" resultType="com.energy.welfare.dto.ConstructionCase">
+        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, MarkYn, TagYn1, TagYn2, TagYn3, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from construction_case
+        where UseYn = 'Y'
+        and MarkYn = 'Y'
+        order by id desc
+        limit 3
     </select>
 
     <select id="getConstructionCase" parameterType="String" resultType="com.energy.welfare.dto.ConstructionCase">

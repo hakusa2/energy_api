@@ -23,8 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter { // 정적 
     @Override
     public void configure(WebSecurity web) {
         web
-                .ignoring();
-                //.antMatchers("/swagger-ui/**"); // swagger
+                .ignoring()
+                .antMatchers("/swagger-ui/**"); // swagger
     }
 
     @Override

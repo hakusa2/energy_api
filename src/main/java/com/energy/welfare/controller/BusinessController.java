@@ -39,14 +39,14 @@ public class BusinessController {
     @Operation(summary = "사업모델 등록", description = "사업모델 등록 API")
     @RequestMapping(value = "write", method = RequestMethod.POST)
     public ModelMap write(
-            @RequestParam(value = "bType", required = true) String bType
-            , @RequestParam(value = "status", required = true) String status
+            @RequestParam(value = "bType") String bType
+            , @RequestParam(value = "status") String status
             , @RequestParam(value = "groupName", required = false) String groupName
             , @RequestParam(value = "name", required = false) String name
             , @RequestParam(value = "birth", required = false) String birth
             , @RequestParam(value = "email", required = false) String email
             , @RequestParam(value = "zipcode", required = false) String zipcode
-            , @RequestParam(value = "addr1", required = false) String addr1
+            , @RequestParam(value = "adder1", required = false) String addr1
             , @RequestParam(value = "addr2", required = false) String addr2
             , @RequestParam(value = "sunLightYn", required = false) String sunLightYn
             , @RequestParam(value = "modelName", required = false) String modelName
@@ -89,8 +89,8 @@ public class BusinessController {
     @Operation(summary = "사업모델 수정", description = "사업모델 수정 API")
     @RequestMapping(value = "modify", method = RequestMethod.POST)
     public ModelMap modify(
-            @RequestParam(value = "bType", required = true) String bType
-            , @RequestParam(value = "status", required = true) String status
+            @RequestParam(value = "bType") String bType
+            , @RequestParam(value = "status") String status
             , @RequestParam(value = "groupName", required = false) String groupName
             , @RequestParam(value = "name", required = false) String name
             , @RequestParam(value = "position", required = false) String position
@@ -101,7 +101,7 @@ public class BusinessController {
             , @RequestParam(value = "addr2", required = false) String addr2
             , @RequestParam(value = "sunLightYn", required = false) String sunLightYn
             , @RequestParam(value = "modelName", required = false) String modelName
-            , @RequestParam(value = "id", required = true) String id
+            , @RequestParam(value = "id") String id
     ) {
         ModelMap modelMap = new ModelMap();
 
@@ -141,8 +141,8 @@ public class BusinessController {
     @Operation(summary = "사업모델 상태변경", description = "사업모델 상태변경 API")
     @RequestMapping(value = "status", method = RequestMethod.GET)
     public ModelMap status(
-            @RequestParam(value = "id", required = true) String id
-            , @RequestParam(value = "status", required = true) String status
+            @RequestParam(value = "id") String id
+            , @RequestParam(value = "status") String status
     ) {
         ModelMap modelMap = new ModelMap();
 
@@ -171,7 +171,7 @@ public class BusinessController {
     @Operation(summary = "사업모델 삭제", description = "사업모델 삭제 API")
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public ModelMap remove(
-            @RequestParam(value = "id", required = true) String id
+            @RequestParam(value = "id") String id
     ) {
         ModelMap modelMap = new ModelMap();
 
