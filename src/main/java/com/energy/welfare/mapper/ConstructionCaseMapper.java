@@ -15,7 +15,7 @@ public interface ConstructionCaseMapper {
 
     int getConstructionCaseTotal(String type);
 
-    ArrayList<ConstructionCase> getConstructionCaseListTop3();
+    ArrayList<ConstructionCase> getConstructionCaseListTop3(String type);
 
     ConstructionCase getConstructionCase(String id);
 

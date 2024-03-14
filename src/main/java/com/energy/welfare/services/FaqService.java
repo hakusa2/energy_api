@@ -18,7 +18,6 @@ public class FaqService {
 
         for(Faq faq : faqList){
             faq.setDescriptionList(faq.getDescription().split("\n"));
-            faq.setDescription("");
         }
         return faqList;
     }

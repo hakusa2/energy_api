@@ -57,8 +57,9 @@ public class ConstructionCaseController {
     @Operation(summary = "구축사례 조회 Top3", description = "구축사례 전체 조회 Top3 API")
     @RequestMapping(value = "getListTop3", method = RequestMethod.GET)
     public List<ConstructionCase> getListTop3(
+            @RequestParam(value = "type", required = true) String type
     ) {
-        return constructionCaseService.getConstructionCaseListTop3();
+        return constructionCaseService.getConstructionCaseListTop3(type);
     }
 
     @Operation(summary = "구축사례 상세(단건) 조회", description = "구축사례 상세(단건) 조회 API")

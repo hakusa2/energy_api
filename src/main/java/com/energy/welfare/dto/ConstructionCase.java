@@ -8,7 +8,9 @@ public class ConstructionCase {
     private String addr1;
     private String addr2;
     private String businessSummary;
+    private String[] businessSummaryList;
     private String packageCompose;
+    private String[] packageComposeList;
     private String imageFile;
     private String imageUrl;
     private String markYn;
@@ -24,6 +26,7 @@ public class ConstructionCase {
     private String useYn;
     private String createdAt;
     private String updatedAt;
+    private boolean visible = false;
 
     public ConstructionCase() {
     }
@@ -76,12 +79,28 @@ public class ConstructionCase {
         this.businessSummary = businessSummary;
     }
 
+    public String[] getBusinessSummaryList() {
+        return businessSummaryList;
+    }
+
+    public void setBusinessSummaryList(String[] businessSummaryList) {
+        this.businessSummaryList = businessSummaryList;
+    }
+
     public String getPackageCompose() {
         return packageCompose;
     }
 
     public void setPackageCompose(String packageCompose) {
         this.packageCompose = packageCompose;
+    }
+
+    public String[] getPackageComposeList() {
+        return packageComposeList;
+    }
+
+    public void setPackageComposeList(String[] packageComposeList) {
+        this.packageComposeList = packageComposeList;
     }
 
     public String getImageFile() {
@@ -202,5 +221,13 @@ public class ConstructionCase {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }

@@ -21,12 +21,29 @@ public class ConstructionCaseService {
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("type", type);
         map.put("page", page);
-        return ConstructionCaseMapper.getConstructionCaseList(map);
+
+        ArrayList<ConstructionCase> constructionCaseList = ConstructionCaseMapper.getConstructionCaseList(map);
+
+        for(ConstructionCase constructionCase : constructionCaseList){
+            constructionCase.setBusinessSummaryList(constructionCase.getBusinessSummary().split("\n"));
+            constructionCase.setPackageComposeList(constructionCase.getPackageCompose().split("\n"));
+        }
+
+        return constructionCaseList;
     }
 
     public int getConstructionCaseTotal(String type){ return ConstructionCaseMapper.getConstructionCaseTotal(type); }
 
-    public ArrayList<ConstructionCase> getConstructionCaseListTop3() { return ConstructionCaseMapper.getConstructionCaseListTop3(); }
+    public ArrayList<ConstructionCase> getConstructionCaseListTop3(String type) {
+        ArrayList<ConstructionCase> constructionCaseList = ConstructionCaseMapper.getConstructionCaseListTop3(type);
+
+        for(ConstructionCase constructionCase : constructionCaseList){
+            constructionCase.setBusinessSummaryList(constructionCase.getBusinessSummary().split("\n"));
+            constructionCase.setPackageComposeList(constructionCase.getPackageCompose().split("\n"));
+        }
+
+        return constructionCaseList;
+    }
 
     public ConstructionCase getConstructionCase(String id) { return ConstructionCaseMapper.getConstructionCase(id); }
 
