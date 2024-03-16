@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -13,6 +14,10 @@ public interface BusinessMapper {
     ArrayList<Business> getBusinessList();
 
     Business getBusiness(String id);
+
+    Business getBusinessConfirm(Map<String,Object> map);
+
+    String getBusinessJoinCheck(Map<String,Object> map);
 
     int insertBusiness(Business business);
 

@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "banner")
 @RequiredArgsConstructor
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 public class BannerController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 

@@ -10,13 +10,15 @@ public class Define {
     public static final String IMG_BANNER_URL = "/file/banner/";
     public static final String IMG_CONSTRUCTION_URL = "/file/construction/";
 
-    public static final String BUSINESS_BTYPE_DATA_1 = "기준/복지시설";
-    public static final String BUSINESS_BTYPE_DATA_2 = "소규모점포";
-    public static final String BUSINESS_BTYPE_DATA_3 = "공동주택";
-    public static final String BUSINESS_BTYPE_DATA_4 = "단독주택";
+    public static final String BUSINESS_BTYPE_DATA_1 = "건물형 인프라구축 사업";
+    public static final String BUSINESS_BTYPE_DATA_2 = "점포형 에너지비용절감 사업";
+    public static final String BUSINESS_BTYPE_DATA_3 = "공동주택형 에너지서비스 사업";
+    public static final String BUSINESS_BTYPE_DATA_4 = "단독주택형 에너지서비스 사업";
 
-    public static final String BUSINESS_STATUS_DATA_1 = "처리중";
-    public static final String BUSINESS_STATUS_DATA_2 = "처리완료";
+    public static final String BUSINESS_STATUS_DATA_1 = "신청완료";
+    public static final String BUSINESS_STATUS_DATA_2 = "심사중";
+    public static final String BUSINESS_STATUS_DATA_3 = "선정";
+    public static final String BUSINESS_STATUS_DATA_4 = "미선정";
 
     public static final int SUCCESS_CODE = 0;
     public static final String SUCCESS_MESSAGE = "성공";

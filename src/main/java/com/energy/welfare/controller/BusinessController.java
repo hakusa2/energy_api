@@ -36,36 +36,57 @@ public class BusinessController {
         return businessService.getBusinessList();
     }
 
+    @Operation(summary = "신청이력 확인", description = "신청이력 확인 API")
+    @RequestMapping(value = "getCheck", method = RequestMethod.POST)
+    public String getCheck(
+            @RequestParam(value = "name") String name
+            , @RequestParam(value = "mobile") String mobile
+    ) {
+        return businessService.getBusinessJoinCheck(name, mobile);
+    }
+
+    @Operation(summary = "신청이력 조회", description = "신청이력 조회 API")
+    @RequestMapping(value = "getConfirm", method = RequestMethod.GET)
+    public Business getConfirm(
+            @RequestParam(value = "id", required = true) String id
+    ) {
+        return businessService.getBusiness(id);
+    }
+
     @Operation(summary = "사업모델 등록", description = "사업모델 등록 API")
     @RequestMapping(value = "write", method = RequestMethod.POST)
     public ModelMap write(
             @RequestParam(value = "bType") String bType
             , @RequestParam(value = "status") String status
-            , @RequestParam(value = "groupName", required = false) String groupName
             , @RequestParam(value = "name", required = false) String name
             , @RequestParam(value = "birth", required = false) String birth
+            , @RequestParam(value = "mobile", required = false) String mobile
+            , @RequestParam(value = "phone", required = false) String phone
             , @RequestParam(value = "email", required = false) String email
             , @RequestParam(value = "zipcode", required = false) String zipcode
-            , @RequestParam(value = "adder1", required = false) String addr1
+            , @RequestParam(value = "addr1", required = false) String addr1
             , @RequestParam(value = "addr2", required = false) String addr2
             , @RequestParam(value = "sunLightYn", required = false) String sunLightYn
             , @RequestParam(value = "modelName", required = false) String modelName
+            , @RequestParam(value = "remoteYn", required = false) String remoteYn
     ) {
         ModelMap modelMap = new ModelMap();
 
         try {
             Business Business = new Business();
-            Business.setBType(bType);
+            Business.setBtype(bType);
             Business.setStatus(status);
-            Business.setGroupName(groupName);
             Business.setName(name);
             Business.setBirth(birth);
+            Business.setMobile(mobile);
+            Business.setPhone(phone);
             Business.setEmail(email);
             Business.setZipcode(zipcode);
             Business.setAddr1(addr1);
             Business.setAddr2(addr2);
             Business.setSunLightYn(sunLightYn);
             Business.setModelName(modelName);
+            Business.setRemoteYn(remoteYn);
 
             int rst = businessService.insertBusiness(Business);
 
@@ -91,33 +112,36 @@ public class BusinessController {
     public ModelMap modify(
             @RequestParam(value = "bType") String bType
             , @RequestParam(value = "status") String status
-            , @RequestParam(value = "groupName", required = false) String groupName
             , @RequestParam(value = "name", required = false) String name
-            , @RequestParam(value = "position", required = false) String position
             , @RequestParam(value = "birth", required = false) String birth
+            , @RequestParam(value = "mobile", required = false) String mobile
+            , @RequestParam(value = "phone", required = false) String phone
             , @RequestParam(value = "email", required = false) String email
             , @RequestParam(value = "zipcode", required = false) String zipcode
             , @RequestParam(value = "addr1", required = false) String addr1
             , @RequestParam(value = "addr2", required = false) String addr2
             , @RequestParam(value = "sunLightYn", required = false) String sunLightYn
             , @RequestParam(value = "modelName", required = false) String modelName
+            , @RequestParam(value = "remoteYn", required = false) String remoteYn
             , @RequestParam(value = "id") String id
     ) {
         ModelMap modelMap = new ModelMap();
 
         try {
             Business Business = businessService.getBusiness(id);
-            Business.setBType(bType);
+            Business.setBtype(bType);
             Business.setStatus(status);
-            Business.setGroupName(groupName);
             Business.setName(name);
             Business.setBirth(birth);
+            Business.setMobile(mobile);
+            Business.setPhone(phone);
             Business.setEmail(email);
             Business.setZipcode(zipcode);
             Business.setAddr1(addr1);
             Business.setAddr2(addr2);
             Business.setSunLightYn(sunLightYn);
             Business.setModelName(modelName);
+            Business.setRemoteYn(remoteYn);
 
             int rst = businessService.updateBusiness(Business);
 

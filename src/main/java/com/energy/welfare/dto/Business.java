@@ -3,18 +3,24 @@ package com.energy.welfare.dto;
 public class Business {
 
     private Long id;
-    private String bType;
+    private String btype;
+    private String btypeName;
     private String status;
-    private String groupName;
+    private String statusName;
+    private String stype;
     private String name;
     private String birth;
+    private String mobile;
     private String phone;
     private String email;
+    private String email1;
+    private String email2;
     private String zipcode;
     private String addr1;
     private String addr2;
     private String sunLightYn;
     private String modelName;
+    private String remoteYn;
     private String useYn;
     private String createdAt;
     private String updatedAt;
@@ -30,12 +36,36 @@ public class Business {
         this.id = id;
     }
 
-    public String getBType() {
-        return bType;
+    public String getBtype() {
+        return btype;
     }
 
-    public void setBType(String bType) {
-        this.bType = bType;
+    public void setBtype(String btype) {
+        this.btype = btype;
+    }
+
+    public String getBtypeName() {
+        return btypeName;
+    }
+
+    public void setBtypeName(String btypeName) {
+        this.btypeName = btypeName;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
+    public String getStype() {
+        return stype;
+    }
+
+    public void setStype(String stype) {
+        this.stype = stype;
     }
 
     public String getStatus() {
@@ -44,14 +74,6 @@ public class Business {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
     }
 
     public String getName() {
@@ -70,6 +92,14 @@ public class Business {
         this.birth = birth;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -84,6 +114,22 @@ public class Business {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmail1() {
+        return email1;
+    }
+
+    public void setEmail1(String email1) {
+        this.email1 = email1;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
     }
 
     public String getZipcode() {
@@ -125,6 +171,10 @@ public class Business {
     public void setModelName(String modelName) {
         this.modelName = modelName;
     }
+
+    public String getRemoteYn() { return remoteYn; }
+
+    public void setRemoteYn(String remoteYn) { this.remoteYn = remoteYn; }
 
     public String getUseYn() {
         return useYn;

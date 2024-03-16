@@ -3,20 +3,34 @@
 <mapper namespace="com.energy.welfare.mapper.BusinessMapper">
 
     <select id="getBusinessList" resultType="com.energy.welfare.dto.Business">
-        select id, btype, status, groupName, name, birth, phone, email, zipcode, addr1, addr2, SunLightYn, modelname, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        select id, btype, status, name, birth, mobile, phone, email, zipcode, addr1, addr2, sunLightYn, modelname, remoteYn, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from business
         where UseYn = 'Y'
     </select>
 
     <select id="getBusiness" parameterType="String" resultType="com.energy.welfare.dto.Business">
-        select id, btype, status, groupName, name, birth, phone, email, zipcode, addr1, addr2, SunLightYn, modelname, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        select id, btype, status, name, birth, mobile, phone, email, zipcode, addr1, addr2, sunLightYn, modelname, remoteYn, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d %H:%i') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from business
         where id = #{id}
     </select>
 
+    <select id="getBusinessJoinCheck" parameterType="Map" resultType="String">
+        select id
+        from business
+        where name = #{name}
+        and mobile = #{mobile}
+    </select>
+
+    <select id="getBusinessConfirm" parameterType="Map" resultType="com.energy.welfare.dto.Business">
+        select id, btype, status, name, birth, mobile, phone, email, zipcode, addr1, addr2, sunLightYn, modelname, remoteYn, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from business
+        where name = #{name}
+        and mobile = #{mobile}
+    </select>
+
     <insert id="insertBusiness" parameterType="com.energy.welfare.dto.Business">
-        insert into business (BType, Status, GroupName, Name, Birth, Phone, Email, Zipcode, Addr1, Addr2, SunLightYn, ModelName)
-        values(#{btype}, #{status}, #{groupName}, #{name}, #{birth}), #{phone}, #{email}, #{zipcode}, #{addr1}), #{addr2}, #{sunLightYn}, #{modelName}));
+        insert into business (BType, Status, Name, Birth, Mobile, Phone, Email, Zipcode, Addr1, Addr2, SunLightYn, ModelName, RemoteYn)
+        values(#{btype}, #{status}, #{name}, #{birth}, #{mobile}, #{phone}, #{email}, #{zipcode}, #{addr1}, #{addr2}, #{sunLightYn}, #{modelName}, #{remoteYn});
     </insert>
     
     <update id="updateBusiness" parameterType="com.energy.welfare.dto.Business">
@@ -24,9 +38,9 @@
         set
               BType = #{btype}
             , Status = #{status}
-            , GroupName = #{groupName}
             , Name = #{name}
             , Birth = #{birth}
+            , Mobile = #{mobile}
             , Phone = #{phone}
             , Email = #{email}
             , Zipcode = #{zipcode}
@@ -34,6 +48,7 @@
             , Addr2 = #{addr2}
             , SunLightYn = #{sunLightYn}
             , ModelName = #{modelName}
+            , RemoteYn = #{remoteYn}
             , UpdatedAt = CURRENT_TIMESTAMP()
         where id = #{id}
     </update>
