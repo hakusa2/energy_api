@@ -1,4 +1,4 @@
-package com.energy.welfare.dto.users;
+package com.energy.welfare.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,15 +18,15 @@ import java.util.Set;
 public class User implements UserDetails {
 
     private Long id;
-    private String email;
+    private String user;
     private String password;
     private String userRole;
 
     @Builder
-    public User(String password, String userRole, String email) {
+    public User(String password, String userRole, String user) {
         this.password = password;
         this.userRole = userRole;
-        this.email = email;
+        this.user = user;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email; // 계정의 고유한 값 리턴
+        return this.user; // 계정의 고유한 값 리턴
     }
 
     @Override

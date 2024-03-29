@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,14 @@ public class FaqController {
     @Value("${file.path.faq}")
     private String filePath;
 
+
+    @PreAuthorize("isAuthenticated() and hasRole('ADMIN')")
+    @Operation(summary = "FAQ 조회", description = "FAQ 전체 조회 API")
+    @RequestMapping(value = "getListAdmin", method = RequestMethod.GET)
+    public List<Faq> getListAdmin(
+    ) {
+        return faqService.getFaqList();
+    }
 
     @Operation(summary = "FAQ 조회", description = "FAQ 전체 조회 API")
     @RequestMapping(value = "getList", method = RequestMethod.GET)

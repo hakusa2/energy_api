@@ -1,8 +1,15 @@
 package com.energy.welfare.utils;
 
+import java.util.HashMap;
+
 public class Define {
+    public static HashMap<String, String> AUTH_MAP = new HashMap<String, String>();
     public static final String CODE = "code";
     public static final String MESSAGE = "message";
+    public static final String TOKEN = "token";
+
+    public static final String ID_PWD_FAIL_1 = "존재하지 않는 아이디 입니다.";
+    public static final String ID_PWD_FAIL_2 = "잘못된 비밀번호 입니다.";
 
     public static final String IMG_NOTICE_URL = "/file/notice/";
     public static final String IMG_PROMOTION_URL = "/file/promotion/";

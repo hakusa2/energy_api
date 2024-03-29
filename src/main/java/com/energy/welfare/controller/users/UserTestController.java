@@ -1,8 +1,8 @@
 package com.energy.welfare.controller.users;
 
 import com.energy.welfare.config.security.JwtConfig;
-import com.energy.welfare.dto.users.User;
-import com.energy.welfare.services.user.UserService;
+import com.energy.welfare.dto.User;
+import com.energy.welfare.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +15,9 @@ import java.util.Arrays;
 
 @RestController
 //@Api(tags = {"회원가입 API"})
-@RequestMapping(value = "user")
+@RequestMapping(value = "test")
 @RequiredArgsConstructor
-public class UserController {
+public class UserTestController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     //private final JwtConfig jwtConfig;

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.energy.welfare.mapper.UserMapper">
+
+    <select id="findAll" resultType="com.energy.welfare.dto.User">
+        select ID, user, Password, UserRole from users
+    </select>
+
+    <select id="getUser" parameterType="String" resultType="com.energy.welfare.dto.User">
+        select ID, user, Password, UserRole
+        from users
+        where user = #{user}
+    </select>
+
+    <select id="userCheck" parameterType="String" resultType="int">
+        select count(*) chk
+        from users
+        where user = #{user}
+    </select>
+
+    <select id="loginCheck" parameterType="Map" resultType="int">
+        select count(*) chk
+        from users
+        where user = #{user}
+        and Password = #{password}
+    </select>
+
+
+</mapper>

@@ -41,14 +41,18 @@ public class JwtConfig {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String userEmail, List<String> roleList) {
-        log.info("createToken userEmail :: " + userEmail);
-        Claims claims = Jwts.claims().setSubject(userEmail); // JWT payload 에 저장되는 정보단위
+    public String createToken(String user, List<String> roleList) {
+        Claims claims = Jwts.claims().setSubject(user); // JWT payload 에 저장되는 정보단위
         claims.put("roles", roleList); // 정보는 key / value 쌍으로 저장된다.
         Date now = new Date();
 
+//        log.info("user::" + user);
+//        log.info("roleList::" + roleList);
+//        log.info("expireTime::" + expireTime);
+//        log.info("secretKey::" + secretKey);
+
         return Jwts.builder()
-                .setSubject(userEmail)
+                .setSubject(user)
                 .setClaims(claims) // 정보 저장
                 .setIssuedAt(now) // 토큰 발행 시간 정보
                 .setExpiration(new Date(now.getTime() + expireTime)) // set Expire Time
@@ -59,13 +63,13 @@ public class JwtConfig {
 
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
-        log.info("getAuthentication token :: " + token);
-        String email = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+//        log.info("getAuthentication token :: " + token);
+        String user = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user);
 
-        log.info("userDetails email :: " + email);
-        log.info("userDetails getUsername :: " + userDetails.getUsername());
-        log.info("userDetails getAuthorities :: " + userDetails.getAuthorities());
+//        log.info("userDetails email :: " + user);
+//        log.info("userDetails getUsername :: " + userDetails.getUsername());
+//        log.info("userDetails getAuthorities :: " + userDetails.getAuthorities());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
         //return null;
     }

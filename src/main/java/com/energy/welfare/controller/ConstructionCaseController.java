@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,7 @@ public class ConstructionCaseController {
     @Value("${file.path.construction}")
     private String filePath;
 
+    @PreAuthorize("isAuthenticated() and hasRole('ADMIN')")
     @Operation(summary = "구축사례 조회", description = "타입별 구축사례 조회 API")
     @RequestMapping(value = "getListAll", method = RequestMethod.GET)
     public List<ConstructionCase> getListAll(

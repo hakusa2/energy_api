@@ -1,7 +1,7 @@
-package com.energy.welfare.services.user.impl;
+package com.energy.welfare.services.impl;
 
-import com.energy.welfare.dto.users.User;
-import com.energy.welfare.services.user.UserService;
+import com.energy.welfare.dto.User;
+import com.energy.welfare.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,13 +16,13 @@ class UserDetailsServiceImpl implements UserDetailsService {
     UserService userService;
 
     @Override
-    public User loadUserByUsername(String userEmail) {
-        User user = userService.getUser(userEmail);
+    public User loadUserByUsername(String user) {
+        User users = userService.getUser(user);
 
-        if(user == null){
-            throw new UsernameNotFoundException(userEmail);
+        if(users == null){
+            throw new UsernameNotFoundException(user);
         }
 
-        return user;
+        return users;
     }
 }

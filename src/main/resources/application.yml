@@ -21,6 +21,12 @@ file:
     banner: '/home/netmics/front/file/banner/'
     construction: '/home/netmics/front/file/construction/'
 
+sms:
+  url: 'https://engram.heritenergy.center:18088/aligo/proxy'
+  key: 'zdfadfasdfjlasdfjksajfksajfklsaj'
+  userid: 'aligo_test'
+  sender: '0316067168'
+
 logging:
   level:
     com:
@@ -40,7 +46,7 @@ logging:
 server:
   port: 8081
 
-JWT_TOKEN: TmV0bWljcw==
+JWT_TOKEN: 64+Z7ZW066y86rO867Cx65GQ7IKw7J2066eI66W06rOg64uz64+E66Gd7ZWY64qQ64uY7J2067O07Jqw7ZWY7IKs7Jqw66as64KY652866eM7IS4
 JWT_EXPIRE_TIME: 86400000
 
 springdoc:

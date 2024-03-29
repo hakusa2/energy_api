@@ -3,14 +3,14 @@
 <mapper namespace="com.energy.welfare.mapper.ConstructionCaseMapper">
 
     <select id="getConstructionCaseListAll" parameterType="Map" resultType="com.energy.welfare.dto.ConstructionCase">
-        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, ImageFile, ImageUrl, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from construction_case
         where UseYn = 'Y'
         order by id desc
     </select>
 
     <select id="getConstructionCaseList" parameterType="Map" resultType="com.energy.welfare.dto.ConstructionCase">
-        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, ImageFile, ImageUrl, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from construction_case
         where UseYn = 'Y'
         and btype = #{type}
@@ -26,7 +26,7 @@
     </select>
 
     <select id="getConstructionCaseListTop3" parameterType="String" resultType="com.energy.welfare.dto.ConstructionCase">
-        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, ImageFile, ImageUrl, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from construction_case
         where UseYn = 'Y'
         and MarkYn = 'Y'
@@ -36,7 +36,7 @@
     </select>
 
     <select id="getConstructionCase" parameterType="String" resultType="com.energy.welfare.dto.ConstructionCase">
-        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        select id, btype, groupName, addr1, addr2, businessSummary, packageCompose, ImageFile, ImageUrl, MarkYn, TagYn1, TagYn2, TagYn3, TagYn4, TagYn5, TagYn6, TagYn7, TagYn8, TagYn9, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from construction_case
         where id = #{id}
     </select>

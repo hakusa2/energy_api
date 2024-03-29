@@ -10,11 +10,17 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+import java.util.Collections;
 
 @RestController
 @RequestMapping(value = "etc")
@@ -24,6 +30,95 @@ public class EtcController {
 
     @Autowired
     EtcService etcService;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Value("${sms.url}")
+    private String smsUrl;
+
+    @Value("${sms.key}")
+    private String smsKey;
+
+    @Value("${sms.userid}")
+    private String smsUserId;
+
+    @Value("${sms.sender}")
+    private String smsSender;
+
+    @Operation(summary = "인증요청", description = "인증요청 API")
+    @RequestMapping(value = "getAuth", method = RequestMethod.GET)
+    public ModelMap getAuth(
+            @RequestParam(value = "mobile", required = true) String mobile
+    ) {
+        ModelMap modelMap = new ModelMap();
+
+        int auth1 = (int)(Math.random()*9);
+        int auth2 = (int)(Math.random()*9);
+        int auth3 = (int)(Math.random()*9);
+        int auth4 = (int)(Math.random()*9);
+        int auth5 = (int)(Math.random()*9);
+        int auth6 = (int)(Math.random()*9);
+
+        String auth = auth1 + "" + auth2 + "" + auth3 + "" + auth4 + "" + auth5 + "" + auth6 + "";
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json;charset=UTF-8");
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+            UriComponents builder = UriComponentsBuilder
+                    .fromUriString(smsUrl)
+                    .queryParam("key", smsKey)
+                    .queryParam("user_id", smsUserId)
+                    .queryParam("sender", smsSender)
+                    .queryParam("receiver", mobile)
+                    .queryParam("msg", "본인확인 인증번호는 [" + auth + "] 입니다.")
+                    .build()
+                    ;
+
+            HttpEntity entity = new HttpEntity<>(headers);
+
+            ResponseEntity response = restTemplate.exchange(
+                    builder.toUriString(),
+                    HttpMethod.POST,
+                    entity,
+                    String.class);
+
+            if(response.getStatusCodeValue() == 200){
+                modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+                modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
+
+                Define.AUTH_MAP.put(mobile, auth);
+            }
+        } catch (Exception e){
+            log.info("getAuth Exception :: " + e.getMessage());
+            modelMap.put(Define.CODE, Define.SYSTEM_FAIL_CODE);
+            modelMap.put(Define.MESSAGE, Define.SYSTEM_FAIL_MESSAGE);
+        }
+
+        return modelMap;
+    }
+
+    @Operation(summary = "인증확인", description = "인증요청 API")
+    @RequestMapping(value = "getAuthCheck", method = RequestMethod.GET)
+    public ModelMap getAuthCheck(
+            @RequestParam(value = "mobile", required = true) String mobile
+            , @RequestParam(value = "auth", required = true) String auth
+    ) {
+        ModelMap modelMap = new ModelMap();
+        String data = Define.AUTH_MAP.get(mobile);
+
+        if(auth.equals(data)){
+            modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+            modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
+        } else {
+            modelMap.put(Define.CODE, Define.SYSTEM_FAIL_CODE);
+            modelMap.put(Define.MESSAGE, Define.SYSTEM_FAIL_MESSAGE);
+        }
+
+        return modelMap;
+    }
 
     @Operation(summary = "상담연락처 조회", description = "전화번호 Email 조회 API")
     @RequestMapping(value = "getAdvice", method = RequestMethod.GET)

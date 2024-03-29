@@ -37,6 +37,13 @@ public class BannerController {
     @Value("${file.path.banner}")
     private String filePath;
 
+    @PreAuthorize("isAuthenticated() and hasRole('ADMIN')")
+    @Operation(summary = "배너 조회", description = "배너 전체 조회 API")
+    @RequestMapping(value = "getListAdmin", method = RequestMethod.GET)
+    public List<Banner> getListAdmin(
+    ) {
+        return bannerService.getBannerList();
+    }
 
     @Operation(summary = "배너 조회", description = "배너 전체 조회 API")
     @RequestMapping(value = "getList", method = RequestMethod.GET)
