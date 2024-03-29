@@ -89,10 +89,6 @@ public class FaqController {
             @RequestParam(value = "qTitle", required = true) String qTitle
             , @RequestParam(value = "aTitle", required = true) String aTitle
             , @RequestParam(value = "description", required = true) String description
-            , @RequestParam(value = "image", required = false) MultipartFile image
-            , @RequestParam(value = "imageDetail", required = false) MultipartFile imageDetail
-            , @RequestParam(value = "link", required = false) String link
-            , @RequestParam(value = "target", required = false) String target
             , @RequestParam(value = "id", required = true) String id
     ) {
         ModelMap modelMap = new ModelMap();
@@ -122,21 +118,24 @@ public class FaqController {
     }
 
     @Operation(summary = "FAQ 삭제", description = "FAQ 삭제 API")
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
     public ModelMap remove(
-            @RequestParam(value = "id", required = true) String id
+            @RequestParam(value = "id", required = true) String[] id
     ) {
         ModelMap modelMap = new ModelMap();
 
         try {
-            int rst = faqService.deleteFaq(id);
+            for(String idx : id){
+                int rst = faqService.deleteFaq(idx);
 
-            if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
-                modelMap.put(Define.CODE, Define.SUCCESS_CODE);
-                modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
-            } else {
-                modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
-                modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
+                if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
+                    modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+                    modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
+                } else {
+                    modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
+                    modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
+                    return modelMap;
+                }
             }
         } catch(Exception e){
             log.info("remove" + e.getMessage());

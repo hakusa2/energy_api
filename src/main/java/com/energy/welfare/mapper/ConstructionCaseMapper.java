@@ -11,6 +11,8 @@ import java.util.Map;
 @Repository
 public interface ConstructionCaseMapper {
 
+    ArrayList<ConstructionCase> getConstructionCaseListAll();
+
     ArrayList<ConstructionCase> getConstructionCaseList(Map<String,Object> map);
 
     int getConstructionCaseTotal(String type);

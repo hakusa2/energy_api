@@ -6,6 +6,7 @@
         select id, btype, status, name, birth, mobile, phone, email, zipcode, addr1, addr2, sunLightYn, modelname, remoteYn, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from business
         where UseYn = 'Y'
+        order by id desc
     </select>
 
     <select id="getBusiness" parameterType="String" resultType="com.energy.welfare.dto.Business">

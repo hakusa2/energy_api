@@ -15,6 +15,10 @@ public class ConstructionCaseService {
     @Autowired
     ConstructionCaseMapper ConstructionCaseMapper;
 
+    public ArrayList<ConstructionCase> getConstructionCaseListAll() {
+        return ConstructionCaseMapper.getConstructionCaseListAll();
+    }
+
     public ArrayList<ConstructionCase> getConstructionCaseList(String type, int page) {
         page = (page - 1) * 3;
 

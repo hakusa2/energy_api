@@ -1,16 +1,13 @@
 package com.energy.welfare.dto;
 
 public class Banner {
-
     private Long id;
+    private String type;
     private String title;
-    private String description;
     private String imageFile;
     private String imageUrl;
-    private String imageFileDetail;
-    private String imageUrlDetail;
     private String linkUrl;
-    private String target;
+    private String signYn;
     private String useYn;
     private String createdAt;
     private String updatedAt;
@@ -26,20 +23,20 @@ public class Banner {
         this.id = id;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getImageFile() {
@@ -58,22 +55,6 @@ public class Banner {
         this.imageUrl = imageUrl;
     }
 
-    public String getImageFileDetail() {
-        return imageFileDetail;
-    }
-
-    public void setImageFileDetail(String imageFileDetail) {
-        this.imageFileDetail = imageFileDetail;
-    }
-
-    public String getImageUrlDetail() {
-        return imageUrlDetail;
-    }
-
-    public void setImageUrlDetail(String imageUrlDetail) {
-        this.imageUrlDetail = imageUrlDetail;
-    }
-
     public String getLinkUrl() {
         return linkUrl;
     }
@@ -82,12 +63,12 @@ public class Banner {
         this.linkUrl = linkUrl;
     }
 
-    public String getTarget() {
-        return target;
+    public String getSignYn() {
+        return signYn;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
+    public void setSignYn(String signYn) {
+        this.signYn = signYn;
     }
 
     public String getUseYn() {

@@ -187,21 +187,24 @@ public class NoticeController {
     }
 
     @Operation(summary = "공지사항 삭제", description = "공지사항 삭제 API")
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
     public ModelMap remove(
-            @RequestParam(value = "id", required = true) String id
+            @RequestParam(value = "id", required = true) String[] id
     ) {
         ModelMap modelMap = new ModelMap();
 
         try {
-            int rst = noticeService.deleteNotice(id);
+            for(String idx : id){
+                int rst = noticeService.deleteNotice(idx);
 
-            if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
-                modelMap.put(Define.CODE, Define.SUCCESS_CODE);
-                modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
-            } else {
-                modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
-                modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
+                if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
+                    modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+                    modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
+                } else {
+                    modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
+                    modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
+                    return modelMap;
+                }
             }
         } catch(Exception e){
             log.info("remove" + e.getMessage());

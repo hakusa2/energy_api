@@ -32,6 +32,12 @@ public class Define {
     public static final int FILE_FAIL_CODE = 1003;
     public static final String FILE_FAIL_MESSAGE = "File Error";
 
+    public static final int NOTICE_CATEGORY_NOTI = 1;
+    public static final int NOTICE_CATEGORY_BODO = 2;
+
+    public static final String NOTICE_CATEGORY_1 = "공지사항";
+    public static final String NOTICE_CATEGORY_2 = "보도자료";
+
 
     public static final int MYBATIS_EXECUTE_SUCCESS_CODE = 1;
 }

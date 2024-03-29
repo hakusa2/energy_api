@@ -69,4 +69,62 @@ public class EtcController {
 
         return modelMap;
     }
+
+    @Operation(summary = "사업신청가능여부 수정", description = "사업신청가능여부 수정 API")
+    @RequestMapping(value = "modifyApproval", method = RequestMethod.POST)
+    public ModelMap modifyApproval(
+            @RequestParam(value = "code1", required = true) String code1
+            , @RequestParam(value = "data1", required = true) String data1
+            , @RequestParam(value = "code2", required = true) String code2
+            , @RequestParam(value = "data2", required = true) String data2
+            , @RequestParam(value = "code3", required = true) String code3
+            , @RequestParam(value = "data3", required = true) String data3
+            , @RequestParam(value = "code4", required = true) String code4
+            , @RequestParam(value = "data4", required = true) String data4
+    ) {
+        ModelMap modelMap = new ModelMap();
+
+        try {
+            EtcDto dto1 = new EtcDto();
+            dto1.setCode(code1);
+            dto1.setData(data1);
+
+            int rst1 = etcService.updateEtc(dto1);
+
+            EtcDto dto2 = new EtcDto();
+            dto2.setCode(code2);
+            dto2.setData(data2);
+
+            int rst2 = etcService.updateEtc(dto2);
+
+            EtcDto dto3 = new EtcDto();
+            dto3.setCode(code3);
+            dto3.setData(data3);
+
+            int rst3 = etcService.updateEtc(dto3);
+
+            EtcDto dto4 = new EtcDto();
+            dto4.setCode(code4);
+            dto4.setData(data4);
+
+            int rst4 = etcService.updateEtc(dto4);
+
+            if(rst1 == Define.MYBATIS_EXECUTE_SUCCESS_CODE
+                    && rst2 == Define.MYBATIS_EXECUTE_SUCCESS_CODE
+                    && rst3 == Define.MYBATIS_EXECUTE_SUCCESS_CODE
+                    && rst4 == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
+                modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+                modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
+            } else {
+                modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
+                modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
+            }
+        } catch(Exception e){
+            log.info("modify" + e.getMessage());
+            modelMap.put(Define.CODE, Define.SYSTEM_FAIL_CODE);
+            modelMap.put(Define.MESSAGE, Define.SYSTEM_FAIL_MESSAGE);
+        }
+
+        return modelMap;
+    }
 }

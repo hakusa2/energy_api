@@ -6,12 +6,14 @@
         select id, qTitle, aTitle, description, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from faq
         where UseYn = 'Y'
+        order by id desc
     </select>
 
     <select id="getFaq" parameterType="String" resultType="com.energy.welfare.dto.Faq">
         select id, qTitle, aTitle, description, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
         from faq
         where id = #{id}
+        order by id desc
     </select>
 
     <insert id="insertFaq" parameterType="com.energy.welfare.dto.Faq">

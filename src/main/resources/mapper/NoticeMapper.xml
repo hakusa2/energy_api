@@ -54,7 +54,7 @@
     </select>
 
     <insert id="insertNotice" parameterType="com.energy.welfare.dto.Notice">
-        insert into notice (Title, `type`, description, imagefile, imageurl) values(#{title}, #{category}, #{description}, #{imagefile}, #{imageurl});
+        insert into notice (Title, `type`, description, imageFile, imageUrl) values(#{title}, #{category}, #{description}, #{imageFile}, #{imageUrl});
     </insert>
     
     <update id="updateNotice" parameterType="com.energy.welfare.dto.Notice">
@@ -63,8 +63,8 @@
               title = #{title}
             , `type` = #{category}
             , description = #{description}
-            , imagefile = #{imagefile}
-            , imageurl = #{imageurl}
+            , imageFile = #{imageFile}
+            , imageUrl = #{imageUrl}
             , updatedat = CURRENT_TIMESTAMP()
         where id = #{id}
     </update>

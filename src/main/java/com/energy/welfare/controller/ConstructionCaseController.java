@@ -36,6 +36,12 @@ public class ConstructionCaseController {
     @Value("${file.path.construction}")
     private String filePath;
 
+    @Operation(summary = "구축사례 조회", description = "타입별 구축사례 조회 API")
+    @RequestMapping(value = "getListAll", method = RequestMethod.GET)
+    public List<ConstructionCase> getListAll(
+    ) {
+        return constructionCaseService.getConstructionCaseListAll();
+    }
 
     @Operation(summary = "구축사례 조회", description = "타입별 구축사례 조회 API")
     @RequestMapping(value = "getList", method = RequestMethod.GET)
@@ -108,6 +114,7 @@ public class ConstructionCaseController {
                 modelMap.put(Define.MESSAGE, Define.FILE_FAIL_MESSAGE);
             } else {
                 ConstructionCase constructionCase = new ConstructionCase();
+                constructionCase.setBType(bType);
                 constructionCase.setGroupName(groupName);
                 constructionCase.setAddr1(addr1);
                 constructionCase.setAddr2(addr2);
@@ -189,6 +196,7 @@ public class ConstructionCaseController {
                 modelMap.put(Define.MESSAGE, Define.FILE_FAIL_MESSAGE);
             } else {
                 ConstructionCase constructionCase = constructionCaseService.getConstructionCase(id);
+                constructionCase.setBType(bType);
                 constructionCase.setGroupName(groupName);
                 constructionCase.setAddr1(addr1);
                 constructionCase.setAddr2(addr2);
@@ -230,21 +238,24 @@ public class ConstructionCaseController {
     }
 
     @Operation(summary = "구축사례 삭제", description = "구축사례 삭제 API")
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
     public ModelMap remove(
-            @RequestParam(value = "id", required = true) String id
+            @RequestParam(value = "id", required = true) String[] id
     ) {
         ModelMap modelMap = new ModelMap();
 
         try {
-            int rst = constructionCaseService.deleteConstructionCase(id);
+            for(String idx : id) {
+                int rst = constructionCaseService.deleteConstructionCase(idx);
 
-            if(rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE){
-                modelMap.put(Define.CODE, Define.SUCCESS_CODE);
-                modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
-            } else {
-                modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
-                modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
+                if (rst == Define.MYBATIS_EXECUTE_SUCCESS_CODE) {
+                    modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+                    modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
+                } else {
+                    modelMap.put(Define.CODE, Define.DATABASE_FAIL_CODE);
+                    modelMap.put(Define.MESSAGE, Define.DATABASE_FAIL_MESSAGE);
+                    return modelMap;
+                }
             }
         } catch(Exception e){
             log.info("remove" + e.getMessage());
