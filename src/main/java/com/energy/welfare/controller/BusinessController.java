@@ -3,6 +3,7 @@ package com.energy.welfare.controller;
 import com.energy.welfare.dto.Business;
 import com.energy.welfare.services.FileService;
 import com.energy.welfare.services.BusinessService;
+import com.energy.welfare.utils.ARIAUtil;
 import com.energy.welfare.utils.Define;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -76,14 +77,18 @@ public class BusinessController {
         ModelMap modelMap = new ModelMap();
 
         try {
+            //String encPassword = ARIAUtil.ariaEncrypt(password);
+            //String descPassword = ARIAUtil.ariaDecrypt(encPassword);
             Business Business = new Business();
             Business.setBtype(bType);
             Business.setStatus(status);
-            Business.setName(name);
+            Business.setName(ARIAUtil.ariaEncrypt(name));
             Business.setBirth(birth);
-            Business.setMobile(mobile);
-            Business.setPhone(phone);
-            Business.setEmail(email);
+            Business.setMobile(ARIAUtil.ariaEncrypt(mobile));
+            if(phone != null && phone.length() > 1)
+                Business.setPhone(ARIAUtil.ariaEncrypt(phone));
+            if(email != null && email.length() > 1)
+                Business.setEmail(ARIAUtil.ariaEncrypt(email));
             Business.setZipcode(zipcode);
             Business.setAddr1(addr1);
             Business.setAddr2(addr2);
@@ -131,14 +136,18 @@ public class BusinessController {
         ModelMap modelMap = new ModelMap();
 
         try {
+            //String encPassword = ARIAUtil.ariaEncrypt(password);
+            //String descPassword = ARIAUtil.ariaDecrypt(encPassword);
             Business Business = businessService.getBusiness(id);
             Business.setBtype(bType);
             Business.setStatus(status);
-            Business.setName(name);
+            Business.setName(ARIAUtil.ariaEncrypt(name));
             Business.setBirth(birth);
-            Business.setMobile(mobile);
-            Business.setPhone(phone);
-            Business.setEmail(email);
+            Business.setMobile(ARIAUtil.ariaEncrypt(mobile));
+            if(phone != null && phone.length() > 1)
+                Business.setPhone(ARIAUtil.ariaEncrypt(phone));
+            if(email != null && email.length() > 1)
+                Business.setEmail(ARIAUtil.ariaEncrypt(email));
             Business.setZipcode(zipcode);
             Business.setAddr1(addr1);
             Business.setAddr2(addr2);

@@ -2,6 +2,7 @@ package com.energy.welfare.services;
 
 import com.energy.welfare.dto.Business;
 import com.energy.welfare.mapper.BusinessMapper;
+import com.energy.welfare.utils.ARIAUtil;
 import com.energy.welfare.utils.Define;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,33 @@ public class BusinessService {
     BusinessMapper businessMapper;
 
     public ArrayList<Business> getBusinessList() {
-        return businessMapper.getBusinessList();
+        //String encPassword = ARIAUtil.ariaEncrypt(password);
+        //String descPassword = ARIAUtil.ariaDecrypt(encPassword);
+        ArrayList<Business> resultList = businessMapper.getBusinessList();
+
+        try {
+            for(Business item : resultList){
+                item.setName(ARIAUtil.ariaDecrypt(item.getName()));
+                item.setPhone(ARIAUtil.ariaDecrypt(item.getPhone()));
+                item.setEmail(ARIAUtil.ariaDecrypt(item.getEmail()));
+                item.setMobile(ARIAUtil.ariaDecrypt(item.getMobile()));
+            }
+        } catch (Exception e){
+        }
+
+        return resultList;
     }
 
     public Business getBusiness(String id) {
         Business business = businessMapper.getBusiness(id);
+
+        try {
+            business.setName(ARIAUtil.ariaDecrypt(business.getName()));
+            business.setPhone(ARIAUtil.ariaDecrypt(business.getPhone()));
+            business.setEmail(ARIAUtil.ariaDecrypt(business.getEmail()));
+            business.setMobile(ARIAUtil.ariaDecrypt(business.getMobile()));
+        } catch (Exception e){
+        }
 
         switch (business.getBtype()){
             case "1":
@@ -61,24 +84,34 @@ public class BusinessService {
         String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
         business.setMobile(business.getMobile().replaceAll(regEx, "$1-$2-$3"));
 
-        business.setEmail1(business.getEmail().split("@")[0]);
-        business.setEmail2(business.getEmail().split("@")[1]);
+        if(business.getEmail() != null && business.getEmail().length() > 3){
+            business.setEmail1(business.getEmail().split("@")[0]);
+            business.setEmail2(business.getEmail().split("@")[1]);
+        }
+
+
 
         return business;
     }
 
     public Business getBusiness(String name, String mobile) {
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("name", name);
-        map.put("mobile", mobile);
+        try {
+            map.put("name", ARIAUtil.ariaEncrypt(name));
+            map.put("mobile", ARIAUtil.ariaEncrypt(mobile));
+        } catch (Exception e){
+        }
 
         return businessMapper.getBusinessConfirm(map);
     }
 
     public String getBusinessJoinCheck(String name, String mobile) {
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("name", name);
-        map.put("mobile", mobile);
+        try {
+            map.put("name", ARIAUtil.ariaEncrypt(name));
+            map.put("mobile", ARIAUtil.ariaEncrypt(mobile));
+        } catch (Exception e){
+        }
 
         return businessMapper.getBusinessJoinCheck(map);
     }
