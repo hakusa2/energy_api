@@ -85,8 +85,12 @@ public class BusinessService {
         business.setMobile(business.getMobile().replaceAll(regEx, "$1-$2-$3"));
 
         if(business.getEmail() != null && business.getEmail().length() > 3){
-            business.setEmail1(business.getEmail().split("@")[0]);
-            business.setEmail2(business.getEmail().split("@")[1]);
+            String[] email = business.getEmail().split("@");
+
+            if(email.length > 0)
+                business.setEmail1(business.getEmail().split("@")[0]);
+            if(email.length > 1)
+                business.setEmail2(business.getEmail().split("@")[1]);
         }
 
 

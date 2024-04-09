@@ -16,7 +16,7 @@
     </select>
 
     <select id="getBusinessJoinCheck" parameterType="Map" resultType="String">
-        select id
+        select max(id) as id
         from business
         where name = #{name}
         and mobile = #{mobile}
