@@ -27,6 +27,11 @@ public class Define {
     public static final String BUSINESS_STATUS_DATA_3 = "선정";
     public static final String BUSINESS_STATUS_DATA_4 = "미선정";
 
+    public static final String BUSINESS_STATUS_DATA2_1 = "일반건물";
+    public static final String BUSINESS_STATUS_DATA2_2 = "점포";
+    public static final String BUSINESS_STATUS_DATA2_3 = "공동주택";
+    public static final String BUSINESS_STATUS_DATA2_4 = "단독주택";
+
     public static final int SUCCESS_CODE = 0;
     public static final String SUCCESS_MESSAGE = "성공";
 

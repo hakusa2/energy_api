@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.energy.welfare.mapper.BusinessStatusMapper">
+
+    <select id="getBusinessStatusList" resultType="com.energy.welfare.dto.BusinessStatus">
+        select id, category, name, builtDate, units, zipcode, addr1, addr2, latitude, longitude, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from business_status
+        where UseYn = 'Y'
+        order by id desc
+    </select>
+
+    <select id="getBusinessStatus" parameterType="String" resultType="com.energy.welfare.dto.BusinessStatus">
+        select id, category, name, builtDate, units, zipcode, addr1, addr2, latitude, longitude, UseYn, DATE_FORMAT(CreatedAt, '%Y.%m.%d') CreatedAt, DATE_FORMAT(UpdatedAt, '%Y.%m.%d') UpdatedAt
+        from business_status
+        where id = #{id}
+    </select>
+
+    <insert id="insertBusinessStatus" parameterType="com.energy.welfare.dto.BusinessStatus">
+        insert into business_status (Category, Name, BuiltDate, Units, Zipcode, Addr1, Addr2, Latitude, Longitude)
+        values(#{category}, #{name}, #{builtDate}, #{units}, #{zipcode}, #{addr1}, #{addr2}, #{latitude}, #{longitude});
+    </insert>
+    
+    <update id="updateBusinessStatus" parameterType="com.energy.welfare.dto.BusinessStatus">
+        update business_status
+        set
+              Category = #{category}
+            , Name = #{name}
+            , BuiltDate = #{builtDate}
+            , Units = #{units}
+            , Zipcode = #{zipcode}
+            , Addr1 = #{addr1}
+            , Addr2 = #{addr2}
+            , Latitude = #{latitude}
+            , Longitude = #{longitude}
+            , UpdatedAt = CURRENT_TIMESTAMP()
+        where id = #{id}
+    </update>
+
+    <update id="deleteBusinessStatus" parameterType="String">
+        update business_status
+        set
+              UseYn = 'N'
+        where id = #{id}
+    </update>
+
+</mapper>
