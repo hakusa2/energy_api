@@ -21,6 +21,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "etc")
@@ -45,6 +48,12 @@ public class EtcController {
 
     @Value("${sms.sender}")
     private String smsSender;
+    
+    @Value("${kakao.rest-key}")
+    private String kakaoRestKey;
+    
+    @Value("${kakao.address-rest-url}")
+    private String addressRestUrl;
 
     @Operation(summary = "인증요청", description = "인증요청 API")
     @RequestMapping(value = "getAuth", method = RequestMethod.GET)
@@ -222,4 +231,57 @@ public class EtcController {
 
         return modelMap;
     }
+    
+
+    @Operation(summary = "주소검색", description = "주소검색 API")
+    @RequestMapping(value = "getAdressDetail", method = RequestMethod.GET)
+    public ModelMap getAdressDetail(
+            @RequestParam(value = "query", required = true) String query
+    ) {
+        ModelMap modelMap = new ModelMap();
+        
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json;charset=UTF-8");
+            headers.add("Authorization", "KakaoAK "+ kakaoRestKey);
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+            UriComponents builder = UriComponentsBuilder
+                    .fromUriString(addressRestUrl)
+                    .queryParam("query", query)
+                    .build()
+                    ;
+
+            HttpEntity entity = new HttpEntity<>(headers);
+
+            ResponseEntity<ModelMap> response = restTemplate.exchange(
+                    builder.toUriString(),
+                    HttpMethod.GET,
+                    entity,
+                    ModelMap.class);
+
+            if(response.getStatusCodeValue() == 200){
+            	ModelMap apiReturn = response.getBody();
+            	Object documentsObject = apiReturn.get("documents");
+                if (documentsObject instanceof List<?> && ((List<?>)documentsObject).size() > 0) {
+                	LinkedHashMap<String, ?> linkedHashMap = (LinkedHashMap)((List<?>)documentsObject).get(0);
+                	for (HashMap.Entry<String, ?> entry : linkedHashMap.entrySet()) {
+                		modelMap.put(entry.getKey(), entry.getValue());
+                    }
+                    modelMap.put(Define.CODE, Define.SUCCESS_CODE);
+                    modelMap.put(Define.MESSAGE, Define.SUCCESS_MESSAGE);
+                }else {
+                    throw new Exception("KaKao API error");
+                }
+
+            }
+        } catch (Exception e){
+            modelMap.put(Define.CODE, Define.SYSTEM_FAIL_CODE);
+            modelMap.put(Define.MESSAGE, Define.SYSTEM_FAIL_MESSAGE);
+        }
+
+        return modelMap;
+    }
+    
 }

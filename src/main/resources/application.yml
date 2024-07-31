@@ -26,6 +26,10 @@ sms:
   key: 'zdfadfasdfjlasdfjksajfksajfklsaj'
   userid: 'aligo_test'
   sender: '0316067168'
+  
+kakao:
+  address-rest-url: 'https://dapi.kakao.com/v2/local/search/address.json'
+  rest-key: 'f88e8eed673426b163d9b26139fcafad'
 
 logging:
   level:
@@ -64,3 +68,4 @@ springdoc:
     doc-expansion: none # tag, operation 펼치는 방식
   paths-to-match:
     - /**
+    
