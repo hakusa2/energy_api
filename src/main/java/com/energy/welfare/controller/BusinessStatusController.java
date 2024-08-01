@@ -29,7 +29,6 @@ public class BusinessStatusController {
     BusinessStatusService businessStatusService;
 
     //@PreAuthorize("isAuthenticated()")
-    @PreAuthorize("isAuthenticated() and hasRole('ADMIN')")
     @Operation(summary = "사업현황 조회", description = "사업현황 전체 조회 API")
     @RequestMapping(value = "getList", method = RequestMethod.GET)
     public List<BusinessStatus> getList(
@@ -85,6 +84,7 @@ public class BusinessStatusController {
         return modelMap;
     }
 
+    @PreAuthorize("isAuthenticated() and hasRole('ADMIN')")
     @Operation(summary = "사업현황 수정", description = "사업현황 수정 API")
     @RequestMapping(value = "modify", method = RequestMethod.POST)
     public ModelMap modify(
@@ -132,6 +132,7 @@ public class BusinessStatusController {
         return modelMap;
     }
 
+    @PreAuthorize("isAuthenticated() and hasRole('ADMIN')")
     @Operation(summary = "사업현황 삭제", description = "사업현황 삭제 API")
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public ModelMap remove(
