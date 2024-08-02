@@ -1,9 +1,9 @@
 spring:
   datasource:
     #driver: com.mysql.cj.jdbc.Driver
-    jdbc-url: jdbc:log4jdbc:mysql://118.67.128.120:3306/potal?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
-    username: energy
-    password: energy
+    jdbc-url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     mapper-locations: classpath:/mapper/**/*.xml
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   servlet:
@@ -22,14 +22,14 @@ file:
     construction: '/home/netmics/front/file/construction/'
 
 sms:
-  url: 'https://engram.heritenergy.center:18088/aligo/proxy'
-  key: 'zdfadfasdfjlasdfjksajfksajfklsaj'
-  userid: 'aligo_test'
-  sender: '0316067168'
+  url: ${SMS_URL}
+  key: ${SMS_KEY}
+  userid: ${SMS_USERID}
+  sender: ${SMS_SENDER}
   
 kakao:
-  address-rest-url: 'https://dapi.kakao.com/v2/local/search/address.json'
-  rest-key: 'f88e8eed673426b163d9b26139fcafad'
+  address-rest-url: ${KAKAO_URL}
+  rest-key: ${KAKAO_REST_KEY}
 
 logging:
   level:
@@ -48,10 +48,10 @@ logging:
       connection : OFF  # 커넥션 연결/종료 정보 출력
 
 server:
-  port: 8081
+  port: ${SERVER_PORT}
 
-JWT_TOKEN: 64+Z7ZW066y86rO867Cx65GQ7IKw7J2066eI66W06rOg64uz64+E66Gd7ZWY64qQ64uY7J2067O07Jqw7ZWY7IKs7Jqw66as64KY652866eM7IS4
-JWT_EXPIRE_TIME: 86400000
+JWT_TOKEN: ${JWT_TOKEN}
+JWT_EXPIRE_TIME: ${JWT_EXPIRE_TIME}
 
 springdoc:
   default-consumes-media-type: application/json
