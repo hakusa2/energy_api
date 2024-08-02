@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.energy.welfare'
-version = "1.0.1"
+version = "1.0.2"
 sourceCompatibility = "17"
 
 // Where to download the library
